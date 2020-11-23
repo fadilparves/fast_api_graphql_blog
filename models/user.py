@@ -1,4 +1,4 @@
-from orator import has_many
+from orator.orm import has_many
 from db import Model
 
 class User(Model):
