@@ -35,3 +35,44 @@ class CreateUser(graphene.Mutation):
         user.save()
 
         return user
+
+class CreatePost(graphene.Mutation):
+    class Arguments:
+        post_details = PostGrapheneInputModel()
+
+    Output = PostGrapheneModel
+
+    @staticmethod
+    def mutate(parent, info, post_details):
+        user = User.find_or_fail(post_details.user_id)
+        post = Post()
+        post.title = post_details.title
+        post.body = post_details.body
+
+        user.posts().save(post)
+
+        return post
+
+class CreateComment(graphene.Mutation):
+    class Arguments:
+        comment_details = CommentGrapheneInputModel()
+
+    Output = CommentGrapheneModel
+
+    @staticmethod
+    def mutate(parent, info, comment_details):
+        user = User.find_or_fail(comment_details.user_id)
+        post = Post.find_or_fail(comment_details.post_id)
+
+        comment = Comments()
+        comment.body = comment_details.body
+
+        user.comments().save(comment)
+        post.comments().save(comment)
+
+        return comment
+
+class Mutation(graphene.ObjectType):
+    create_user = CreateUser.Field()
+    create_post = CreatePost.Field()
+    create_comment = CreateComment.Field()
