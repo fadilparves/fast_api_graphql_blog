@@ -1,6 +1,9 @@
-from orator import Model
-
+from orator import has_many
+from db import Model
 
 class Post(Model):
+    @has_many
+    def comments(self):
+        from .comment import Comments
 
-    pass
+        return Comments
