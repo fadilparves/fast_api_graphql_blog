@@ -18,7 +18,7 @@ And other endpoints based on the requirements
 
 Where as GraphQL you can just build one endpoint and describe the attributes just like a SQL query and get the response, and in the same endpoint you can get users, post and comments data for that user, example below:
 
-![gif](https://media.giphy.com/media/1Tew2072GuwNjHLV8O/giphy.gif)
+
 
 ### Fast API
 
